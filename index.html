@@ -637,7 +637,7 @@ html,body{height:100%;background:var(--paper);color:var(--ink);font-family:"DM S
 <script>
 const CL_KEY="boston2026-cl",LG_KEY="boston2026-lg",DOC_KEY="boston2026-doc";
 function switchTab(id,btn){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}
-function toggleDay(h){const b=h.nextElementSibling,a=h.querySelector(".day-toggle"),o=b.classList.contains("open");b.classList.toggle("open",!o);a.classList.toggle("open",!o);}
+function toggleDay(h){const b=h.nextElementSibling,a=h.querySelector(".day-toggle");if(b.style.display==="block"){b.style.display="none";b.classList.remove("open");a.classList.remove("open");}else{b.style.display="block";b.classList.add("open");a.classList.add("open");}}
 function toggleCheck(item,type){const box=item.querySelector(".cl-box"),lbl=item.querySelector(".cl-label");box.classList.toggle("checked");lbl.classList.toggle("done",box.classList.contains("checked"));saveList(type);updateProgress(type);}
 function getItems(type){return type==="cl"?document.querySelectorAll("#checklist .cl-item"):document.querySelectorAll("#luggage .cl-item");}
 function updateProgress(type){const items=getItems(type);const all=items.length,done=Array.from(items).filter(i=>i.querySelector(".cl-box").classList.contains("checked")).length,pct=all?Math.round(done/all*100):0;if(type==="cl"){document.getElementById("prog-fill").style.width=pct+"%";document.getElementById("prog-count").textContent=done+" / "+all;}else{document.getElementById("lg-fill").style.width=pct+"%";document.getElementById("lg-count").textContent=done+" / "+all;}}

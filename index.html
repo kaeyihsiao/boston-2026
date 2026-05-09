@@ -35,8 +35,8 @@ html,body{height:100%;background:var(--paper);color:var(--ink);font-family:"DM S
 .day-desc{font-size:12px;color:var(--ink3);margin-top:1px}
 .day-toggle{font-size:12px;color:var(--ink3);transition:transform 0.2s}
 .day-toggle.open{transform:rotate(180deg)}
-.day-body{padding:14px 16px;display:none}
-.day-body.open{display:block}
+.day-body{padding:14px 16px;display:none;}
+.day-body.open{display:block;}
 .tl-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
 .tl-item:last-child{margin-bottom:0}
 .tl-time{min-width:44px;font-size:11px;color:var(--ink3);text-align:right;padding-top:2px}
@@ -637,7 +637,7 @@ html,body{height:100%;background:var(--paper);color:var(--ink);font-family:"DM S
 <script>
 const CL_KEY="boston2026-cl",LG_KEY="boston2026-lg",DOC_KEY="boston2026-doc";
 function switchTab(id,btn){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}
-function toggleDay(h){const b=h.nextElementSibling,a=h.querySelector(".day-toggle");if(b.style.display==="block"){b.style.display="none";b.classList.remove("open");a.classList.remove("open");}else{b.style.display="block";b.classList.add("open");a.classList.add("open");}}
+function toggleDay(h){const b=h.nextElementSibling,a=h.querySelector(".day-toggle");b.classList.toggle("open");a.classList.toggle("open");}
 function toggleCheck(item,type){const box=item.querySelector(".cl-box"),lbl=item.querySelector(".cl-label");box.classList.toggle("checked");lbl.classList.toggle("done",box.classList.contains("checked"));saveList(type);updateProgress(type);}
 function getItems(type){return type==="cl"?document.querySelectorAll("#checklist .cl-item"):document.querySelectorAll("#luggage .cl-item");}
 function updateProgress(type){const items=getItems(type);const all=items.length,done=Array.from(items).filter(i=>i.querySelector(".cl-box").classList.contains("checked")).length,pct=all?Math.round(done/all*100):0;if(type==="cl"){document.getElementById("prog-fill").style.width=pct+"%";document.getElementById("prog-count").textContent=done+" / "+all;}else{document.getElementById("lg-fill").style.width=pct+"%";document.getElementById("lg-count").textContent=done+" / "+all;}}

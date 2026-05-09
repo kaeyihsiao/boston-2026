@@ -2,652 +2,313 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Boston 2026">
 <title>Boston 2026 — The Aesthetic Meet</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--ink:#0f0e0c;--ink3:#7a7770;--paper:#faf8f4;--paper2:#f0ece4;--paper3:#e4ddd2;--accent:#1a1a2e;--gold:#c9a84c;--gold2:#e8c97a;--radius:14px;--radius-sm:8px}
-html,body{height:100%;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.5;overscroll-behavior:none}
-.app-shell{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
-.hero{background:var(--accent);color:white;padding:52px 20px 24px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(201,168,76,0.12)}
-.hero::after{content:"";position:absolute;bottom:-40px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.04)}
-.hero-eyebrow{font-size:10px;letter-spacing:2.5px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;font-weight:500}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0f0e0c;--ink3:#7a7770;--paper:#faf8f4;--paper2:#f0ece4;--paper3:#e4ddd2;--accent:#1a1a2e;--gold:#c9a84c;--gold2:#e8c97a}
+body{background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+.hero{background:var(--accent);color:#fff;padding:52px 20px 24px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(201,168,76,.12)}
+.eyebrow{font-size:10px;letter-spacing:2.5px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px}
 .hero-title{font-family:"Playfair Display",serif;font-size:28px;font-weight:500;line-height:1.2;margin-bottom:4px}
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:16px}
-.hero-pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,0.8)}
-.tab-bar{background:var(--accent);padding:0 16px 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.tab-bar::-webkit-scrollbar{display:none}
-.tab-btn{flex-shrink:0;padding:7px 16px;border-radius:20px;font-size:13px;border:0.5px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.6);cursor:pointer;font-family:"DM Sans",sans-serif;transition:all 0.2s}
-.tab-btn.active{background:var(--gold);border-color:var(--gold);color:var(--accent);font-weight:500}
-.content{flex:1;padding:16px}
-.section{display:none}
-.section.active{display:block}
-.day-card{background:white;border-radius:var(--radius);margin-bottom:12px;overflow:hidden;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.day-header{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;background:var(--paper);border-bottom:0.5px solid var(--paper3)}
-.day-icon{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.day-info{flex:1}
-.day-label{font-size:14px;font-weight:500;color:var(--ink)}
-.day-desc{font-size:12px;color:var(--ink3);margin-top:1px}
-.day-toggle{font-size:12px;color:var(--ink3);transition:transform 0.2s}
-.day-toggle.open{transform:rotate(180deg)}
-.day-body{padding:14px 16px;display:none;}
-.day-body.open{display:block;}
-.tl-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
-.tl-item:last-child{margin-bottom:0}
-.tl-time{min-width:44px;font-size:11px;color:var(--ink3);text-align:right;padding-top:2px}
-.tl-marker{display:flex;flex-direction:column;align-items:center;padding-top:4px}
-.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.tl-line{width:1px;background:var(--paper3);flex:1;min-height:18px;margin-top:3px}
-.tl-content{flex:1}
-.tl-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
-.tl-notes{margin-top:4px;display:flex;flex-direction:column;gap:2px}
-.tl-note{font-size:12px;color:var(--ink3);line-height:1.5;padding-left:12px;position:relative}
-.tl-note::before{content:"·";position:absolute;left:2px;color:var(--ink3)}
-.badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
-.b-flight{background:#dbeafe;color:#1e40af}
-.b-transit{background:#dcfce7;color:#166534}
-.b-hotel{background:#fef3c7;color:#92400e}
-.b-food{background:#ffe4e6;color:#9f1239}
-.b-tip{background:#ede9fe;color:#5b21b6}
-.b-event{background:#fef9c3;color:#854d0e}
-.flight-card{background:white;border-radius:var(--radius);padding:16px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.flight-route{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.airport{text-align:center}
-.airport-code{font-family:"Playfair Display",serif;font-size:26px;color:var(--accent);line-height:1}
-.airport-time{font-size:13px;color:var(--ink3);margin-top:2px}
-.flight-line{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 8px}
-.fl-num{font-size:11px;color:var(--gold);font-weight:500;letter-spacing:0.5px}
-.fl-arrow{width:100%;height:1px;background:var(--paper3);position:relative}
-.fl-arrow::after{content:"\25B6";position:absolute;right:-2px;top:-6px;font-size:10px;color:var(--ink3)}
-.fl-tags{display:flex;gap:6px;flex-wrap:wrap}
-.fl-tag{font-size:11px;color:var(--ink3);background:var(--paper2);padding:2px 8px;border-radius:6px}
-.sec-eye{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:500;margin:16px 0 8px}
-.sec-eye:first-child{margin-top:0}
-.transit-card{background:white;border-radius:var(--radius);padding:16px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.transit-title{font-size:14px;font-weight:500;color:var(--ink);padding-bottom:12px;border-bottom:0.5px solid var(--paper3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.t-icon{width:28px;height:28px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.step{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
-.step:last-child{margin-bottom:0}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--gold2);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-content{flex:1}
-.step-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
-.step-notes{display:flex;flex-direction:column;gap:2px;margin-top:3px}
-.step-note{font-size:12px;color:var(--ink3);line-height:1.5;padding-left:12px;position:relative}
-.step-note::before{content:"·";position:absolute;left:2px;color:var(--ink3)}
-.callout{background:var(--accent);color:white;border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px}
-.callout-label{font-size:10px;letter-spacing:1.5px;color:var(--gold2);text-transform:uppercase;margin-bottom:4px}
-.callout-text{font-size:13px;line-height:1.5;color:rgba(255,255,255,0.85)}
-.callout-text strong{color:white;font-weight:500}
-.progress-wrap{margin-bottom:14px}
-.progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.progress-title{font-size:13px;font-weight:500;color:var(--ink)}
-.progress-count{font-size:12px;color:var(--ink3)}
-.progress-track{height:4px;background:var(--paper3);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s ease}
-.cl-group{background:white;border-radius:var(--radius);margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden}
-.cl-group-header{padding:10px 14px;background:var(--paper2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;border-bottom:0.5px solid var(--paper3)}
-.cl-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid var(--paper2);cursor:pointer;transition:background 0.15s;user-select:none}
-.cl-item:last-child{border-bottom:none}
-.cl-item:active{background:var(--paper2)}
-.cl-box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--paper3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
-.cl-box.checked{background:var(--accent);border-color:var(--accent)}
-.cl-check{color:var(--gold2);font-size:12px;display:none}
-.cl-box.checked .cl-check{display:block}
-.cl-label{font-size:13px;color:var(--ink);flex:1;transition:color 0.2s}
-.cl-label.done{text-decoration:line-through;color:var(--ink3)}
-.cl-tag{font-size:10px;color:var(--ink3);background:var(--paper2);padding:2px 7px;border-radius:6px}
-.doc-group{background:white;border-radius:var(--radius);margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden}
-.doc-group-header{padding:10px 14px;background:var(--paper2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;border-bottom:0.5px solid var(--paper3)}
-.doc-item{border-bottom:0.5px solid var(--paper2)}
-.doc-item:last-child{border-bottom:none}
-.doc-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;transition:background 0.15s}
-.doc-row:active{background:var(--paper2)}
-.doc-icon{width:32px;height:32px;border-radius:8px;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.doc-info{flex:1}
-.doc-name{font-size:13px;font-weight:500;color:var(--ink)}
-.doc-status{font-size:11px;color:var(--ink3);margin-top:1px}
-.doc-arrow{font-size:12px;color:var(--ink3);transition:transform 0.2s}
-.doc-arrow.open{transform:rotate(180deg)}
-.doc-preview{display:none;padding:0 14px 14px}
-.doc-preview.open{display:block}
-.doc-upload-area{border:1.5px dashed var(--paper3);border-radius:var(--radius-sm);padding:20px;text-align:center;cursor:pointer}
-.doc-upload-label{font-size:13px;color:var(--ink3);margin-bottom:4px}
-.doc-upload-hint{font-size:11px;color:var(--ink3)}
-.doc-upload-btn{display:inline-block;margin-top:10px;padding:7px 16px;background:var(--accent);color:white;border-radius:20px;font-size:12px;cursor:pointer}
-.doc-file-input{display:none}
-.doc-img-preview{width:100%;border-radius:var(--radius-sm);margin-top:8px}
-.doc-pdf-preview{width:100%;height:400px;border-radius:var(--radius-sm);border:none;margin-top:8px}
-.doc-clear-btn{display:inline-block;margin-top:8px;padding:5px 12px;background:var(--paper2);color:var(--ink3);border-radius:20px;font-size:11px;cursor:pointer}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.8)}
+.tabs{background:var(--accent);padding:0 16px 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:7px 16px;border-radius:20px;font-size:13px;border:0.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.6);cursor:pointer;font-family:"DM Sans",sans-serif}
+.tab.on{background:var(--gold);border-color:var(--gold);color:var(--accent);font-weight:500}
+.body{flex:1;padding:16px}
+.page{display:none}
+.page.on{display:block}
+.card{background:#fff;border-radius:14px;margin-bottom:12px;overflow:hidden;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card-head{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;background:var(--paper);border-bottom:0.5px solid var(--paper3)}
+.dicon{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dinfo{flex:1}
+.dlabel{font-size:14px;font-weight:500}
+.ddesc{font-size:12px;color:var(--ink3);margin-top:1px}
+.darrow{font-size:12px;color:var(--ink3);transition:transform .2s}
+.darrow.on{transform:rotate(180deg)}
+.card-body{padding:14px 16px;display:none}
+.card-body.on{display:block}
+.tl{display:flex;flex-direction:column;gap:14px}
+.ti{display:flex;gap:12px;align-items:flex-start}
+.tt{min-width:44px;font-size:11px;color:var(--ink3);text-align:right;padding-top:2px}
+.tm{display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.td{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.tl2{width:1px;background:var(--paper3);flex:1;min-height:18px;margin-top:3px}
+.tc{flex:1}
+.ttl{font-size:13px;font-weight:500;line-height:1.4}
+.tnotes{margin-top:4px;display:flex;flex-direction:column;gap:2px}
+.tn{font-size:12px;color:var(--ink3);line-height:1.5;padding-left:12px;position:relative}
+.tn::before{content:"·";position:absolute;left:2px}
+.bdgs{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.b{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.bf{background:#dbeafe;color:#1e40af}
+.bt{background:#dcfce7;color:#166534}
+.bh{background:#fef3c7;color:#92400e}
+.bfd{background:#ffe4e6;color:#9f1239}
+.bp{background:#ede9fe;color:#5b21b6}
+.be{background:#fef9c3;color:#854d0e}
+.fc{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.fr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ap{text-align:center}
+.ac{font-family:"Playfair Display",serif;font-size:26px;color:var(--accent);line-height:1}
+.at{font-size:13px;color:var(--ink3);margin-top:2px}
+.fl{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 8px}
+.fn{font-size:11px;color:var(--gold);font-weight:500}
+.fa{width:100%;height:1px;background:var(--paper3);position:relative}
+.fa::after{content:"▶";position:absolute;right:-2px;top:-6px;font-size:10px;color:var(--ink3)}
+.ftgs{display:flex;gap:6px;flex-wrap:wrap}
+.ftg{font-size:11px;color:var(--ink3);background:var(--paper2);padding:2px 8px;border-radius:6px}
+.eye{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:500;margin:16px 0 8px}
+.eye:first-child{margin-top:0}
+.tc2{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.th{font-size:14px;font-weight:500;padding-bottom:12px;border-bottom:0.5px solid var(--paper3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ti2{width:28px;height:28px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.sp{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.sp:last-child{margin-bottom:0}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--gold2);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sc{flex:1}
+.st{font-size:13px;font-weight:500;margin-bottom:2px}
+.sns{display:flex;flex-direction:column;gap:2px;margin-top:3px}
+.sn2{font-size:12px;color:var(--ink3);line-height:1.5;padding-left:12px;position:relative}
+.sn2::before{content:"·";position:absolute;left:2px}
+.co{background:var(--accent);color:#fff;border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.col{font-size:10px;letter-spacing:1.5px;color:var(--gold2);text-transform:uppercase;margin-bottom:4px}
+.cot{font-size:13px;line-height:1.5;color:rgba(255,255,255,.85)}
+.cot strong{color:#fff}
+.pw{margin-bottom:14px}
+.ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.pt{font-size:13px;font-weight:500}
+.pc{font-size:12px;color:var(--ink3)}
+.ptr{height:4px;background:var(--paper3);border-radius:2px;overflow:hidden}
+.pf{height:100%;background:var(--accent);border-radius:2px;transition:width .4s}
+.cg{background:#fff;border-radius:14px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
+.cgh{padding:10px 14px;background:var(--paper2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;border-bottom:0.5px solid var(--paper3)}
+.ci{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid var(--paper2);cursor:pointer;user-select:none}
+.ci:last-child{border-bottom:none}
+.cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--paper3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cb.on{background:var(--accent);border-color:var(--accent)}
+.ck{color:var(--gold2);font-size:12px;display:none}
+.cb.on .ck{display:block}
+.cl{font-size:13px;flex:1}
+.cl.done{text-decoration:line-through;color:var(--ink3)}
+.ctg{font-size:10px;color:var(--ink3);background:var(--paper2);padding:2px 7px;border-radius:6px}
+.dg{background:#fff;border-radius:14px;margin-bottom:10px;border:0.5px solid var(--paper3);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
+.dgh{padding:10px 14px;background:var(--paper2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-weight:500;border-bottom:0.5px solid var(--paper3)}
+.di{border-bottom:0.5px solid var(--paper2)}
+.di:last-child{border-bottom:none}
+.dr{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none}
+.dico{width:32px;height:32px;border-radius:8px;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dni{flex:1}
+.dn{font-size:13px;font-weight:500}
+.ds{font-size:11px;color:var(--ink3);margin-top:1px}
+.da{font-size:12px;color:var(--ink3);transition:transform .2s}
+.da.on{transform:rotate(180deg)}
+.dp{display:none;padding:0 14px 14px}
+.dp.on{display:block}
+.dua{border:1.5px dashed var(--paper3);border-radius:8px;padding:20px;text-align:center;cursor:pointer}
+.dul{font-size:13px;color:var(--ink3);margin-bottom:4px}
+.duh{font-size:11px;color:var(--ink3)}
+.dub{display:inline-block;margin-top:10px;padding:7px 16px;background:var(--accent);color:#fff;border-radius:20px;font-size:12px;cursor:pointer}
+.dfi{display:none}
+.dim{width:100%;border-radius:8px;margin-top:8px}
+.dif{width:100%;height:400px;border:none;border-radius:8px;margin-top:8px}
+.dcb{display:inline-block;margin-top:8px;padding:5px 12px;background:var(--paper2);color:var(--ink3);border-radius:20px;font-size:11px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="app-shell">
+<div class="wrap">
 <div class="hero">
-  <div class="hero-eyebrow">The Aesthetic Meet 2026</div>
-  <div class="hero-title">波士頓<br>Boston &#x2708;</div>
+  <div class="eyebrow">The Aesthetic Meet 2026</div>
+  <div class="hero-title">波士頓 Boston ✈</div>
   <div class="hero-sub">Omni Boston Hotel at the Seaport</div>
-  <div class="hero-pills">
-    <span class="pill">May 14&#x2013;18</span>
-    <span class="pill">BR26 &middot; AS536</span>
+  <div class="pills">
+    <span class="pill">May 14–18</span>
+    <span class="pill">BR26 · AS536</span>
     <span class="pill">4段航班</span>
   </div>
 </div>
-<div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('itinerary',this)">行程</button>
-  <button class="tab-btn" onclick="switchTab('flights',this)">航班</button>
-  <button class="tab-btn" onclick="switchTab('transit',this)">西雅圖轉機</button>
-  <button class="tab-btn" onclick="switchTab('checklist',this)">待辦清單</button>
-  <button class="tab-btn" onclick="switchTab('luggage',this)">行李清單</button>
-  <button class="tab-btn" onclick="switchTab('docs',this)">文件清單</button>
+<div class="tabs">
+  <button class="tab on" onclick="go('p-itin',this)">行程</button>
+  <button class="tab" onclick="go('p-flight',this)">航班</button>
+  <button class="tab" onclick="go('p-transit',this)">西雅圖轉機</button>
+  <button class="tab" onclick="go('p-todo',this)">待辦清單</button>
+  <button class="tab" onclick="go('p-bag',this)">行李清單</button>
+  <button class="tab" onclick="go('p-doc',this)">文件清單</button>
 </div>
-<div class="content">
+<div class="body">
+<div id="p-itin" class="page on">
+<div class="card"><div class="card-head" onclick="tog(this)"><div class="dicon">✈</div><div class="dinfo"><div class="dlabel">Day 1 — May 14 (Thu)</div><div class="ddesc">出發日 · 林口 → 桃園 → 西雅圖</div></div><div class="darrow">&#9660;</div></div><div class="card-body"><div class="tl"><div class="ti"><div class="tt">21:00</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">林口出發</div></div></div><div class="ti"><div class="tt">21:40</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">抵達桃園機場第二航廈</div><div class="tnotes"><div class="tn">前往長榮 The Garden Lounge（營業至 23:30）</div><div class="tn">進入資格：長榮商務艙＋AE 卡</div><div class="tn">可掃桌面 QR code 點餐</div></div><div class="bdgs"><span class="b bp">貴賓廳</span></div></div></div><div class="ti"><div class="tt">23:10</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">登機</div></div></div><div class="ti"><div class="tt">23:40</div><div class="tm"><div class="td"></div></div><div class="tc"><div class="ttl">BR26 起飛 TPE → SEA</div><div class="tnotes"><div class="tn">記得連機上 WiFi</div></div><div class="bdgs"><span class="b bf">長榮航空</span></div></div></div></div></div></div><div class="card"><div class="card-head" onclick="tog(this)"><div class="dicon">🌏</div><div class="dinfo"><div class="dlabel">Day 2 — May 15 (Fri)</div><div class="ddesc">西雅圖轉機 → 抵達波士頓</div></div><div class="darrow">&#9660;</div></div><div class="card-body"><div class="tl"><div class="ti"><div class="tt">19:30</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">抵達西雅圖 SEA</div><div class="tnotes"><div class="tn">台灣時間 5/15 10:30</div><div class="tn">開啟 eSIM，執行轉機流程</div><div class="tn">可進貴賓廳洗澡休息</div></div><div class="bdgs"><span class="b bt">轉機</span><span class="b bp">Priority Pass</span></div></div></div><div class="ti"><div class="tt">23:10</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">AS536 起飛 SEA → BOS</div><div class="tnotes"><div class="tn">機上 WiFi USD 8</div></div><div class="bdgs"><span class="b bf">Alaska Airlines</span></div></div></div><div class="ti"><div class="tt">07:41</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">抵達波士頓 BOS</div><div class="tnotes"><div class="tn">台灣時間 5/15 19:41</div><div class="tn">乾爸媽接機</div></div></div></div><div class="ti"><div class="tt">09:00</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">The Aesthetic Meet 2026</div><div class="tnotes"><div class="tn">地點：Thomas M. Menino Convention &amp; Exhibition Center</div><div class="tn">會場 Check-in</div><div class="tn">QR code for badge</div><div class="tn">下載大會 App</div></div><div class="bdgs"><span class="b be">會議</span></div></div></div><div class="ti"><div class="tt"></div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">Omni Boston Hotel at the Seaport</div><div class="tnotes"><div class="tn">辦理入住 Check-in</div></div><div class="bdgs"><span class="b bh">飯店</span></div></div></div><div class="ti"><div class="tt">18:30</div><div class="tm"><div class="td"></div></div><div class="tc"><div class="ttl">Presidential Welcome Reception</div><div class="tnotes"><div class="tn">結束時間 20:00</div></div><div class="bdgs"><span class="b bfd">晚宴</span><span class="b be">會議</span></div></div></div></div></div></div><div class="card"><div class="card-head" onclick="tog(this)"><div class="dicon">🎯</div><div class="dinfo"><div class="dlabel">Day 3 — May 16 (Sat)</div><div class="ddesc">The Aesthetic Meet 2026 會議日</div></div><div class="darrow">&#9660;</div></div><div class="card-body"><div class="tl"><div class="ti"><div class="tt">全天</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">The Aesthetic Meet 2026</div><div class="tnotes"><div class="tn">地點：Thomas M. Menino Convention &amp; Exhibition Center</div></div><div class="bdgs"><span class="b be">會議</span></div></div></div><div class="ti"><div class="tt">晚餐</div><div class="tm"><div class="td"></div></div><div class="tc"><div class="ttl">晚餐（已訂位）</div><div class="bdgs"><span class="b bfd">餐廳</span></div></div></div></div></div></div><div class="card"><div class="card-head" onclick="tog(this)"><div class="dicon">🎯</div><div class="dinfo"><div class="dlabel">Day 4 — May 17 (Sun)</div><div class="ddesc">The Aesthetic Meet 2026 · 返程日</div></div><div class="darrow">&#9660;</div></div><div class="card-body"><div class="tl"><div class="ti"><div class="tt">全天</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">The Aesthetic Meet 2026</div><div class="tnotes"><div class="tn">地點：Thomas M. Menino Convention &amp; Exhibition Center</div></div><div class="bdgs"><span class="b be">會議</span></div></div></div><div class="ti"><div class="tt">16:50</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">前往波士頓機場</div><div class="tnotes"><div class="tn">告訴司機目的地是 TPE（台北）</div></div></div></div><div class="ti"><div class="tt">17:11</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">抵達 BOS 機場</div><div class="tnotes"><div class="tn">台灣時間 5/18 05:11</div><div class="tn">前往 Legal Sea Foods 用餐，或進貴賓廳</div></div><div class="bdgs"><span class="b bfd">Legal Sea Foods</span><span class="b bp">貴賓廳</span></div></div></div><div class="ti"><div class="tt">19:11</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">AS306 起飛 BOS → SEA</div><div class="tnotes"><div class="tn">台灣時間 5/18 07:11</div></div><div class="bdgs"><span class="b bf">Alaska Airlines</span></div></div></div><div class="ti"><div class="tt">22:27</div><div class="tm"><div class="td"></div></div><div class="tc"><div class="ttl">抵達西雅圖 SEA 轉機</div><div class="tnotes"><div class="tn">台灣時間 5/18 13:27</div><div class="tn">確認貴賓廳營業時間</div><div class="tn">預約淋浴：I'd like to reserve a shower.</div></div><div class="bdgs"><span class="b bp">Priority Pass</span><span class="b bt">轉機</span></div></div></div></div></div></div><div class="card"><div class="card-head" onclick="tog(this)"><div class="dicon">🏠</div><div class="dinfo"><div class="dlabel">Day 5 — May 18 (Mon)</div><div class="ddesc">返台 · 西雅圖 → 台北</div></div><div class="darrow">&#9660;</div></div><div class="card-body"><div class="tl"><div class="ti"><div class="tt">01:50</div><div class="tm"><div class="td"></div><div class="tl2"></div></div><div class="tc"><div class="ttl">BR25 起飛 SEA → TPE</div><div class="tnotes"><div class="tn">記得連機上 WiFi</div></div><div class="bdgs"><span class="b bf">長榮航空</span></div></div></div><div class="ti"><div class="tt">05:10</div><div class="tm"><div class="td"></div></div><div class="tc"><div class="ttl">抵達台北 TPE 🎉</div></div></div></div></div></div>
+</div>
 
-<div id="itinerary" class="section active">
+<div id="p-flight" class="page">
+  <div class="eye">去程 Outbound</div>
+  <div class="fc"><div class="fr"><div class="ap"><div class="ac">TPE</div><div class="at">23:40</div></div><div class="fl"><div class="fn">BR26</div><div class="fa"></div></div><div class="ap" style="text-align:right"><div class="ac">SEA</div><div class="at">19:30</div></div></div><div class="ftgs"><span class="ftg">長榮航空</span><span class="ftg">May 14</span><span class="ftg">機上 WiFi</span></div></div>
+  <div class="fc"><div class="fr"><div class="ap"><div class="ac">SEA</div><div class="at">23:10</div></div><div class="fl"><div class="fn">AS536</div><div class="fa"></div></div><div class="ap" style="text-align:right"><div class="ac">BOS</div><div class="at">07:41</div></div></div><div class="ftgs"><span class="ftg">Alaska Airlines</span><span class="ftg">May 14→15</span><span class="ftg">WiFi USD 8</span></div></div>
+  <div class="eye">回程 Return</div>
+  <div class="fc"><div class="fr"><div class="ap"><div class="ac">BOS</div><div class="at">19:11</div></div><div class="fl"><div class="fn">AS306</div><div class="fa"></div></div><div class="ap" style="text-align:right"><div class="ac">SEA</div><div class="at">22:27</div></div></div><div class="ftgs"><span class="ftg">Alaska Airlines</span><span class="ftg">May 17</span></div></div>
+  <div class="fc"><div class="fr"><div class="ap"><div class="ac">SEA</div><div class="at">01:50</div></div><div class="fl"><div class="fn">BR25</div><div class="fa"></div></div><div class="ap" style="text-align:right"><div class="ac">TPE</div><div class="at">05:10</div></div></div><div class="ftgs"><span class="ftg">長榮航空</span><span class="ftg">May 18</span><span class="ftg">機上 WiFi</span></div></div>
+</div>
 
-<div class="day-card">
-  <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-icon">&#x2708;</div>
-    <div class="day-info"><div class="day-label">Day 1 &#x2014; May 14 (Thu)</div><div class="day-desc">出發日 &middot; 林口 &#x2192; 桃園 &#x2192; 西雅圖</div></div>
-    <div class="day-toggle">&#x25BC;</div>
+<div id="p-transit" class="page">
+  <div class="co"><div class="col">去程轉機 SEA · BR26 → AS536</div><div class="cot">需要 <strong>領行李 → 過海關 → 重新托運</strong>，預留充裕時間</div></div>
+  <div class="tc2">
+    <div class="th"><div class="ti2">🛃</div>六步轉機流程</div>
+    <div class="sp"><div class="sn">1</div><div class="sc"><div class="st">入境審查</div><div class="sns"><div class="sn2">跟著 Arrivals / Passport Control 指標走</div><div class="sn2">排隊過美國海關 (CBP)</div><div class="sn2">準備護照、簽證 ESTA</div></div></div></div>
+    <div class="sp"><div class="sn">2</div><div class="sc"><div class="st">領行李 Baggage Claim</div><div class="sns"><div class="sn2">不管同不同張票，都一定要領出來</div></div></div></div>
+    <div class="sp"><div class="sn">3</div><div class="sc"><div class="st">過海關 Customs</div><div class="sns"><div class="sn2">有申報走紅線，無申報走綠線（通常很快）</div></div></div></div>
+    <div class="sp"><div class="sn">4</div><div class="sc"><div class="st">重新托運 Baggage Re-check</div><div class="sns"><div class="sn2">出海關後找「Connecting Flights / Baggage Recheck」</div><div class="sn2">Alaska Airlines 櫃台或轉運帶</div><div class="sn2">分開買票 → 去 Alaska Airlines 櫃台重新 check-in</div></div></div></div>
+    <div class="sp"><div class="sn">5</div><div class="sc"><div class="st">再過 TSA 安檢</div><div class="sns"><div class="sn2">重新托運後上樓到出發層</div><div class="sn2">再過一次國內航班安檢</div></div></div></div>
+    <div class="sp"><div class="sn">6</div><div class="sc"><div class="st">找登機門 Gate</div><div class="sns"><div class="sn2">Alaska 多在 C / N gates</div><div class="sn2">可搭地下小火車 SEA Underground 快速移動</div></div></div></div>
   </div>
-  <div class="day-body">
-    <div class="tl-item">
-      <div class="tl-time">21:00</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content"><div class="tl-title">林口出發</div></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">21:40</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">抵達桃園機場第二航廈</div>
-        <div class="tl-notes">
-          <div class="tl-note">前往長榮 The Garden Lounge（營業至 23:30）</div>
-          <div class="tl-note">進入資格：長榮商務艙＋AE 卡</div>
-          <div class="tl-note">可掃桌面 QR code 點餐</div>
-        </div>
-        <div class="badges"><span class="badge b-tip">貴賓廳</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">23:10</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content"><div class="tl-title">登機</div></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">23:40</div><div class="tl-marker"><div class="tl-dot"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">BR26 起飛 TPE &#x2192; SEA</div>
-        <div class="tl-notes"><div class="tl-note">記得連機上 WiFi</div></div>
-        <div class="badges"><span class="badge b-flight">長榮航空</span></div>
-      </div>
-    </div>
+  <div class="tc2">
+    <div class="th"><div class="ti2">🚿</div>貴賓廳 &amp; 淋浴</div>
+    <div class="sp"><div class="sn">✓</div><div class="sc"><div class="st">去程：Priority Pass 入場</div><div class="sns"><div class="sn2">在西雅圖可洗澡休息，再搭 AS536</div></div></div></div>
+    <div class="sp"><div class="sn">✓</div><div class="sc"><div class="st">回程：淋浴預約</div><div class="sns"><div class="sn2">先確認貴賓廳營業時間</div><div class="sn2">「I'd like to reserve a shower.」</div></div></div></div>
+  </div>
+  <div class="tc2">
+    <div class="th"><div class="ti2">📱</div>抵達西雅圖第一件事</div>
+    <div class="sp"><div class="sn">✓</div><div class="sc"><div class="st">開啟 eSIM</div><div class="sns"><div class="sn2">連上美國網路，開啟地圖導航</div><div class="sn2">確認轉機資訊</div></div></div></div>
   </div>
 </div>
 
-<div class="day-card">
-  <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-icon">&#x1F30F;</div>
-    <div class="day-info"><div class="day-label">Day 2 &#x2014; May 15 (Fri)</div><div class="day-desc">西雅圖轉機 &#x2192; 抵達波士頓</div></div>
-    <div class="day-toggle">&#x25BC;</div>
-  </div>
-  <div class="day-body">
-    <div class="tl-item">
-      <div class="tl-time">19:30</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">抵達西雅圖 SEA</div>
-        <div class="tl-notes">
-          <div class="tl-note">台灣時間 5/15 10:30</div>
-          <div class="tl-note">開啟 eSIM，執行轉機流程（見「西雅圖轉機」分頁）</div>
-          <div class="tl-note">可進貴賓廳洗澡休息</div>
-        </div>
-        <div class="badges"><span class="badge b-transit">轉機</span><span class="badge b-tip">Priority Pass</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">23:10</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">AS536 起飛 SEA &#x2192; BOS</div>
-        <div class="tl-notes"><div class="tl-note">機上 WiFi USD 8</div></div>
-        <div class="badges"><span class="badge b-flight">Alaska Airlines</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">07:41</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">抵達波士頓 BOS</div>
-        <div class="tl-notes">
-          <div class="tl-note">台灣時間 5/15 19:41</div>
-          <div class="tl-note">乾爸媽接機</div>
-        </div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">09:00</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">The Aesthetic Meet 2026</div>
-        <div class="tl-notes">
-          <div class="tl-note">地點：Thomas M. Menino Convention &amp; Exhibition Center</div>
-          <div class="tl-note">會場 Check-in</div>
-          <div class="tl-note">QR code for badge</div>
-          <div class="tl-note">下載大會 App</div>
-        </div>
-        <div class="badges"><span class="badge b-event">會議</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time"></div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">Omni Boston Hotel at the Seaport</div>
-        <div class="tl-notes"><div class="tl-note">辦理入住 Check-in</div></div>
-        <div class="badges"><span class="badge b-hotel">飯店</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">18:30</div><div class="tl-marker"><div class="tl-dot"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">Presidential Welcome Reception</div>
-        <div class="tl-notes"><div class="tl-note">結束時間 20:00</div></div>
-        <div class="badges"><span class="badge b-food">晚宴</span><span class="badge b-event">會議</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="day-card">
-  <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-icon">&#x1F3AF;</div>
-    <div class="day-info"><div class="day-label">Day 3 &#x2014; May 16 (Sat)</div><div class="day-desc">The Aesthetic Meet 2026 會議日</div></div>
-    <div class="day-toggle">&#x25BC;</div>
-  </div>
-  <div class="day-body">
-    <div class="tl-item">
-      <div class="tl-time">全天</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">The Aesthetic Meet 2026</div>
-        <div class="tl-notes"><div class="tl-note">地點：Thomas M. Menino Convention &amp; Exhibition Center</div></div>
-        <div class="badges"><span class="badge b-event">會議</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">晚餐</div><div class="tl-marker"><div class="tl-dot"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">晚餐（已訂位）</div>
-        <div class="badges"><span class="badge b-food">餐廳</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="day-card">
-  <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-icon">&#x1F3AF;</div>
-    <div class="day-info"><div class="day-label">Day 4 &#x2014; May 17 (Sun)</div><div class="day-desc">The Aesthetic Meet 2026 &middot; 返程日</div></div>
-    <div class="day-toggle">&#x25BC;</div>
-  </div>
-  <div class="day-body">
-    <div class="tl-item">
-      <div class="tl-time">全天</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">The Aesthetic Meet 2026</div>
-        <div class="tl-notes"><div class="tl-note">地點：Thomas M. Menino Convention &amp; Exhibition Center</div></div>
-        <div class="badges"><span class="badge b-event">會議</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">16:50</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">前往波士頓機場</div>
-        <div class="tl-notes"><div class="tl-note">告訴司機目的地是 TPE（台北）</div></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">17:11</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">抵達 BOS 機場</div>
-        <div class="tl-notes">
-          <div class="tl-note">台灣時間 5/18 05:11</div>
-          <div class="tl-note">前往 Legal Sea Foods 用餐，或進貴賓廳</div>
-        </div>
-        <div class="badges"><span class="badge b-food">Legal Sea Foods</span><span class="badge b-tip">貴賓廳</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">19:11</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">AS306 起飛 BOS &#x2192; SEA</div>
-        <div class="tl-notes"><div class="tl-note">台灣時間 5/18 07:11</div></div>
-        <div class="badges"><span class="badge b-flight">Alaska Airlines</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">22:27</div><div class="tl-marker"><div class="tl-dot"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">抵達西雅圖 SEA 轉機</div>
-        <div class="tl-notes">
-          <div class="tl-note">台灣時間 5/18 13:27</div>
-          <div class="tl-note">確認貴賓廳營業時間</div>
-          <div class="tl-note">預約淋浴：「I'd like to reserve a shower.」</div>
-        </div>
-        <div class="badges"><span class="badge b-tip">Priority Pass</span><span class="badge b-transit">轉機</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="day-card">
-  <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-icon">&#x1F3E0;</div>
-    <div class="day-info"><div class="day-label">Day 5 &#x2014; May 18 (Mon)</div><div class="day-desc">返台 &middot; 西雅圖 &#x2192; 台北</div></div>
-    <div class="day-toggle">&#x25BC;</div>
-  </div>
-  <div class="day-body">
-    <div class="tl-item">
-      <div class="tl-time">01:50</div><div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-title">BR25 起飛 SEA &#x2192; TPE</div>
-        <div class="tl-notes"><div class="tl-note">記得連機上 WiFi</div></div>
-        <div class="badges"><span class="badge b-flight">長榮航空</span></div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">05:10</div><div class="tl-marker"><div class="tl-dot"></div></div>
-      <div class="tl-content"><div class="tl-title">抵達台北 TPE &#x1F389;</div></div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div id="flights" class="section">
-  <div class="sec-eye">去程 Outbound</div>
-  <div class="flight-card">
-    <div class="flight-route">
-      <div class="airport"><div class="airport-code">TPE</div><div class="airport-time">23:40</div></div>
-      <div class="flight-line"><div class="fl-num">BR26</div><div class="fl-arrow"></div></div>
-      <div class="airport" style="text-align:right"><div class="airport-code">SEA</div><div class="airport-time">19:30</div></div>
-    </div>
-    <div class="fl-tags"><span class="fl-tag">長榮航空</span><span class="fl-tag">May 14</span><span class="fl-tag">機上 WiFi</span></div>
-  </div>
-  <div class="flight-card">
-    <div class="flight-route">
-      <div class="airport"><div class="airport-code">SEA</div><div class="airport-time">23:10</div></div>
-      <div class="flight-line"><div class="fl-num">AS536</div><div class="fl-arrow"></div></div>
-      <div class="airport" style="text-align:right"><div class="airport-code">BOS</div><div class="airport-time">07:41</div></div>
-    </div>
-    <div class="fl-tags"><span class="fl-tag">Alaska Airlines</span><span class="fl-tag">May 14&#x2192;15</span><span class="fl-tag">WiFi USD 8</span></div>
-  </div>
-  <div class="sec-eye">回程 Return</div>
-  <div class="flight-card">
-    <div class="flight-route">
-      <div class="airport"><div class="airport-code">BOS</div><div class="airport-time">19:11</div></div>
-      <div class="flight-line"><div class="fl-num">AS306</div><div class="fl-arrow"></div></div>
-      <div class="airport" style="text-align:right"><div class="airport-code">SEA</div><div class="airport-time">22:27</div></div>
-    </div>
-    <div class="fl-tags"><span class="fl-tag">Alaska Airlines</span><span class="fl-tag">May 17</span></div>
-  </div>
-  <div class="flight-card">
-    <div class="flight-route">
-      <div class="airport"><div class="airport-code">SEA</div><div class="airport-time">01:50</div></div>
-      <div class="flight-line"><div class="fl-num">BR25</div><div class="fl-arrow"></div></div>
-      <div class="airport" style="text-align:right"><div class="airport-code">TPE</div><div class="airport-time">05:10</div></div>
-    </div>
-    <div class="fl-tags"><span class="fl-tag">長榮航空</span><span class="fl-tag">May 18</span><span class="fl-tag">機上 WiFi</span></div>
-  </div>
-</div>
-
-<div id="transit" class="section">
-  <div class="callout">
-    <div class="callout-label">去程轉機 SEA &middot; BR26 &#x2192; AS536</div>
-    <div class="callout-text">需要 <strong>領行李 &#x2192; 過海關 &#x2192; 重新托運</strong>，預留充裕時間</div>
-  </div>
-  <div class="transit-card">
-    <div class="transit-title"><div class="t-icon">&#x1F6C3;</div>六步轉機流程</div>
-    <div class="step"><div class="step-num">1</div><div class="step-content">
-      <div class="step-title">入境審查</div>
-      <div class="step-notes">
-        <div class="step-note">跟著 Arrivals / Passport Control 指標走</div>
-        <div class="step-note">排隊過美國海關 (CBP)</div>
-        <div class="step-note">準備護照、簽證 ESTA</div>
-      </div>
-    </div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-content">
-      <div class="step-title">領行李 Baggage Claim</div>
-      <div class="step-notes"><div class="step-note">不管同不同張票，都一定要領出來</div></div>
-    </div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-content">
-      <div class="step-title">過海關 Customs</div>
-      <div class="step-notes"><div class="step-note">有申報走紅線，無申報走綠線（通常很快）</div></div>
-    </div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-content">
-      <div class="step-title">重新托運 Baggage Re-check</div>
-      <div class="step-notes">
-        <div class="step-note">出海關後找「Connecting Flights / Baggage Recheck」</div>
-        <div class="step-note">Alaska Airlines 櫃台或轉運帶</div>
-        <div class="step-note">分開買票 &#x2192; 去 Alaska Airlines 櫃台重新 check-in</div>
-      </div>
-    </div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-content">
-      <div class="step-title">再過 TSA 安檢</div>
-      <div class="step-notes">
-        <div class="step-note">重新托運後上樓到出發層</div>
-        <div class="step-note">再過一次國內航班安檢</div>
-      </div>
-    </div></div>
-    <div class="step"><div class="step-num">6</div><div class="step-content">
-      <div class="step-title">找登機門 Gate</div>
-      <div class="step-notes">
-        <div class="step-note">Alaska 多在 C / N gates</div>
-        <div class="step-note">可搭地下小火車 SEA Underground 快速移動</div>
-      </div>
-    </div></div>
-  </div>
-  <div class="transit-card">
-    <div class="transit-title"><div class="t-icon">&#x1F6BF;</div>貴賓廳 &amp; 淋浴</div>
-    <div class="step"><div class="step-num">&#x2713;</div><div class="step-content">
-      <div class="step-title">去程：Priority Pass 入場</div>
-      <div class="step-notes"><div class="step-note">在西雅圖可洗澡休息，再搭 AS536</div></div>
-    </div></div>
-    <div class="step"><div class="step-num">&#x2713;</div><div class="step-content">
-      <div class="step-title">回程：淋浴預約</div>
-      <div class="step-notes">
-        <div class="step-note">先確認貴賓廳營業時間</div>
-        <div class="step-note">「I'd like to reserve a shower.」</div>
-      </div>
-    </div></div>
-  </div>
-  <div class="transit-card">
-    <div class="transit-title"><div class="t-icon">&#x1F4F1;</div>抵達西雅圖第一件事</div>
-    <div class="step"><div class="step-num">&#x2713;</div><div class="step-content">
-      <div class="step-title">開啟 eSIM</div>
-      <div class="step-notes">
-        <div class="step-note">連上美國網路，開啟地圖導航</div>
-        <div class="step-note">確認轉機資訊</div>
-      </div>
-    </div></div>
-  </div>
-</div>
-
-<div id="checklist" class="section">
-  <div class="progress-wrap">
-    <div class="progress-header"><div class="progress-title">出發前準備進度</div><div class="progress-count" id="prog-count">0 / 22</div></div>
-    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">文件 &amp; 金錢</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">護照效期確認</span><span class="cl-tag">文件</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">ESTA 申請</span><span class="cl-tag">文件</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">換美金現金</span><span class="cl-tag">金錢</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">旅遊保險購買</span><span class="cl-tag">保險</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">通訊 &amp; 3C</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">購買 eSIM</span><span class="cl-tag">通訊</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">行動電源帶了</span><span class="cl-tag">3C</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">航班</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">電子機票備妥</span><span class="cl-tag">文件</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">預先選餐</span><span class="cl-tag">航班</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">網路劃位</span><span class="cl-tag">航班</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">會議 &amp; 住宿</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">會議資料準備</span><span class="cl-tag">會議</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">飯店資料確認</span><span class="cl-tag">住宿</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">App 下載</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">EVA Air App</span><span class="cl-tag">App</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">Alaska Airlines App</span><span class="cl-tag">App</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">Priority Pass App</span><span class="cl-tag">App</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">flySEA App</span><span class="cl-tag">App</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">MPC App</span><span class="cl-tag">App</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">大會 App 下載</span><span class="cl-tag">App</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">餐廳預訂</div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">5/15 晚餐訂位</span><span class="cl-tag">餐廳</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'cl')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">5/16 晚餐訂位</span><span class="cl-tag">餐廳</span></div>
-  </div>
-</div>
-
-<div id="luggage" class="section">
-  <div class="progress-wrap">
-    <div class="progress-header"><div class="progress-title">行李打包進度</div><div class="progress-count" id="lg-count">0 / 0</div></div>
-    <div class="progress-track"><div class="progress-fill" id="lg-fill" style="width:0%"></div></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">衣物</div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">上衣 &#xD7; 4</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">褲子 &#xD7; 2</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">外套（波士頓五月偏涼）</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">正式服裝（Welcome Reception）</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">內衣褲 &#xD7; 4</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">襪子 &#xD7; 4</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">舒適步行鞋</span><span class="cl-tag">衣物</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">睡衣</span><span class="cl-tag">衣物</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">盥洗 &amp; 保養</div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">牙刷 / 牙膏</span><span class="cl-tag">盥洗</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">洗面乳</span><span class="cl-tag">保養</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">保濕乳液（機上乾燥）</span><span class="cl-tag">保養</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">防曬乳 SPF50+</span><span class="cl-tag">保養</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">洗髮 / 沐浴乳（小瓶）</span><span class="cl-tag">盥洗</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">隱形眼鏡 + 藥水</span><span class="cl-tag">盥洗</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">眼鏡（備用）</span><span class="cl-tag">盥洗</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">3C &amp; 電器</div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">手機充電線</span><span class="cl-tag">3C</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">行動電源</span><span class="cl-tag">3C</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">耳機</span><span class="cl-tag">3C</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">筆電 + 充電器</span><span class="cl-tag">3C</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">萬用轉接頭（美規 Type A）</span><span class="cl-tag">電器</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">藥品 &amp; 健康</div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">感冒藥 / 退燒藥</span><span class="cl-tag">藥品</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">腸胃藥 / 止瀉藥</span><span class="cl-tag">藥品</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">止痛藥（頭痛 / 時差）</span><span class="cl-tag">藥品</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">個人常備藥</span><span class="cl-tag">藥品</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">OK 繃 / 簡易急救包</span><span class="cl-tag">健康</span></div>
-  </div>
-  <div class="cl-group"><div class="cl-group-header">其他雜項</div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">頸枕（長途飛機必備）</span><span class="cl-tag">機上</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">眼罩 + 耳塞</span><span class="cl-tag">機上</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">名片</span><span class="cl-tag">會議</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">摺疊雨傘</span><span class="cl-tag">其他</span></div>
-    <div class="cl-item" onclick="toggleCheck(this,'lg')"><div class="cl-box"><span class="cl-check">&#x2713;</span></div><span class="cl-label">行李秤</span><span class="cl-tag">其他</span></div>
-  </div>
-</div>
-
-<div id="docs" class="section">
-  <div class="callout" style="margin-bottom:14px">
-    <div class="callout-label">使用說明</div>
-    <div class="callout-text">點選各文件 &#x2192; 上傳圖片或 PDF &#x2192; 預覽顯示於下方。<strong>檔案存在這台裝置的瀏覽器中</strong>，更換裝置需重新上傳。</div>
-  </div>
-  <div class="doc-group"><div class="doc-group-header">旅行文件</div>
-    <div class="doc-item" id="doc-passport">
-      <div class="doc-row" onclick="toggleDoc('doc-passport')">
-        <div class="doc-icon">&#x1F6C2;</div><div class="doc-info"><div class="doc-name">護照</div><div class="doc-status" id="doc-passport-status">尚未上傳</div></div><div class="doc-arrow" id="doc-passport-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-passport-preview">
-        <div id="doc-passport-area"><div class="doc-upload-area" onclick="document.getElementById('doc-passport-input').click()"><div class="doc-upload-label">點此上傳護照</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-passport-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-passport')">
-      </div>
-    </div>
-    <div class="doc-item" id="doc-esta">
-      <div class="doc-row" onclick="toggleDoc('doc-esta')">
-        <div class="doc-icon">&#x1F1FA;&#x1F1F8;</div><div class="doc-info"><div class="doc-name">ESTA 核准確認</div><div class="doc-status" id="doc-esta-status">尚未上傳</div></div><div class="doc-arrow" id="doc-esta-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-esta-preview">
-        <div id="doc-esta-area"><div class="doc-upload-area" onclick="document.getElementById('doc-esta-input').click()"><div class="doc-upload-label">點此上傳 ESTA 確認頁</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-esta-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-esta')">
-      </div>
-    </div>
-  </div>
-  <div class="doc-group"><div class="doc-group-header">航班</div>
-    <div class="doc-item" id="doc-ticket-go">
-      <div class="doc-row" onclick="toggleDoc('doc-ticket-go')">
-        <div class="doc-icon">&#x2708;</div><div class="doc-info"><div class="doc-name">電子機票（去程）BR26 + AS536</div><div class="doc-status" id="doc-ticket-go-status">尚未上傳</div></div><div class="doc-arrow" id="doc-ticket-go-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-ticket-go-preview">
-        <div id="doc-ticket-go-area"><div class="doc-upload-area" onclick="document.getElementById('doc-ticket-go-input').click()"><div class="doc-upload-label">點此上傳去程機票</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-ticket-go-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-ticket-go')">
-      </div>
-    </div>
-    <div class="doc-item" id="doc-ticket-return">
-      <div class="doc-row" onclick="toggleDoc('doc-ticket-return')">
-        <div class="doc-icon">&#x2708;</div><div class="doc-info"><div class="doc-name">電子機票（回程）AS306 + BR25</div><div class="doc-status" id="doc-ticket-return-status">尚未上傳</div></div><div class="doc-arrow" id="doc-ticket-return-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-ticket-return-preview">
-        <div id="doc-ticket-return-area"><div class="doc-upload-area" onclick="document.getElementById('doc-ticket-return-input').click()"><div class="doc-upload-label">點此上傳回程機票</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-ticket-return-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-ticket-return')">
-      </div>
-    </div>
-  </div>
-  <div class="doc-group"><div class="doc-group-header">住宿 &amp; 保險</div>
-    <div class="doc-item" id="doc-hotel">
-      <div class="doc-row" onclick="toggleDoc('doc-hotel')">
-        <div class="doc-icon">&#x1F3E8;</div><div class="doc-info"><div class="doc-name">飯店訂房確認信</div><div class="doc-status" id="doc-hotel-status">尚未上傳</div></div><div class="doc-arrow" id="doc-hotel-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-hotel-preview">
-        <div id="doc-hotel-area"><div class="doc-upload-area" onclick="document.getElementById('doc-hotel-input').click()"><div class="doc-upload-label">點此上傳飯店確認信</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-hotel-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-hotel')">
-      </div>
-    </div>
-    <div class="doc-item" id="doc-insurance">
-      <div class="doc-row" onclick="toggleDoc('doc-insurance')">
-        <div class="doc-icon">&#x1F6E1;&#xFE0F;</div><div class="doc-info"><div class="doc-name">旅遊保險單</div><div class="doc-status" id="doc-insurance-status">尚未上傳</div></div><div class="doc-arrow" id="doc-insurance-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-insurance-preview">
-        <div id="doc-insurance-area"><div class="doc-upload-area" onclick="document.getElementById('doc-insurance-input').click()"><div class="doc-upload-label">點此上傳保險單</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-insurance-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-insurance')">
-      </div>
-    </div>
-  </div>
-  <div class="doc-group"><div class="doc-group-header">會議</div>
-    <div class="doc-item" id="doc-conf">
-      <div class="doc-row" onclick="toggleDoc('doc-conf')">
-        <div class="doc-icon">&#x1F39F;&#xFE0F;</div><div class="doc-info"><div class="doc-name">大會報名確認 / Badge QR</div><div class="doc-status" id="doc-conf-status">尚未上傳</div></div><div class="doc-arrow" id="doc-conf-arrow">&#x25BC;</div>
-      </div>
-      <div class="doc-preview" id="doc-conf-preview">
-        <div id="doc-conf-area"><div class="doc-upload-area" onclick="document.getElementById('doc-conf-input').click()"><div class="doc-upload-label">點此上傳大會確認文件</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div></div>
-        <input class="doc-file-input" id="doc-conf-input" type="file" accept="image/*,application/pdf" onchange="handleDocUpload(this,'doc-conf')">
-      </div>
-    </div>
-  </div>
-</div>
+<div id="p-todo" class="page"><div class="pw"><div class="ph"><div class="pt">進度</div><div class="pc" id="prog-todo">0 / 0</div></div><div class="ptr"><div class="pf" id="fill-todo" style="width:0%"></div></div></div><div class="cg"><div class="cgh">文件 &amp; 金錢</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">護照效期確認</span><span class="ctg">文件</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">ESTA 申請</span><span class="ctg">文件</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">換美金現金</span><span class="ctg">金錢</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">旅遊保險購買</span><span class="ctg">保險</span></div></div><div class="cg"><div class="cgh">通訊 &amp; 3C</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">購買 eSIM</span><span class="ctg">通訊</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">行動電源帶了</span><span class="ctg">3C</span></div></div><div class="cg"><div class="cgh">航班</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">電子機票備妥</span><span class="ctg">文件</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">預先選餐</span><span class="ctg">航班</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">網路劃位</span><span class="ctg">航班</span></div></div><div class="cg"><div class="cgh">會議 &amp; 住宿</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">會議資料準備</span><span class="ctg">會議</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">飯店資料確認</span><span class="ctg">住宿</span></div></div><div class="cg"><div class="cgh">App 下載</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">EVA Air App</span><span class="ctg">App</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">Alaska Airlines App</span><span class="ctg">App</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">Priority Pass App</span><span class="ctg">App</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">flySEA App</span><span class="ctg">App</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">MPC App</span><span class="ctg">App</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">大會 App 下載</span><span class="ctg">App</span></div></div><div class="cg"><div class="cgh">餐廳預訂</div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">5/15 晚餐訂位</span><span class="ctg">餐廳</span></div><div class="ci" onclick="chk(this,'p-todo')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">5/16 晚餐訂位</span><span class="ctg">餐廳</span></div></div></div><div id="p-bag" class="page"><div class="pw"><div class="ph"><div class="pt">進度</div><div class="pc" id="prog-bag">0 / 0</div></div><div class="ptr"><div class="pf" id="fill-bag" style="width:0%"></div></div></div><div class="cg"><div class="cgh">衣物</div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">上衣 x4</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">褲子 x2</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">外套（波士頓五月偏涼）</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">正式服裝（Welcome Reception）</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">內衣褲 x4</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">襪子 x4</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">舒適步行鞋</span><span class="ctg">衣物</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">睡衣</span><span class="ctg">衣物</span></div></div><div class="cg"><div class="cgh">盥洗 &amp; 保養</div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">牙刷 / 牙膏</span><span class="ctg">盥洗</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">洗面乳</span><span class="ctg">保養</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">保濕乳液（機上乾燥）</span><span class="ctg">保養</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">防曬乳 SPF50+</span><span class="ctg">保養</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">洗髮 / 沐浴乳（小瓶）</span><span class="ctg">盥洗</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">隱形眼鏡 + 藥水</span><span class="ctg">盥洗</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">眼鏡（備用）</span><span class="ctg">盥洗</span></div></div><div class="cg"><div class="cgh">3C &amp; 電器</div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">手機充電線</span><span class="ctg">3C</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">行動電源</span><span class="ctg">3C</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">耳機</span><span class="ctg">3C</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">筆電 + 充電器</span><span class="ctg">3C</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">萬用轉接頭（美規 Type A）</span><span class="ctg">電器</span></div></div><div class="cg"><div class="cgh">藥品 &amp; 健康</div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">感冒藥 / 退燒藥</span><span class="ctg">藥品</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">腸胃藥 / 止瀉藥</span><span class="ctg">藥品</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">止痛藥</span><span class="ctg">藥品</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">個人常備藥</span><span class="ctg">藥品</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">OK 繃 / 急救包</span><span class="ctg">健康</span></div></div><div class="cg"><div class="cgh">其他</div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">頸枕</span><span class="ctg">機上</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">眼罩 + 耳塞</span><span class="ctg">機上</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">名片</span><span class="ctg">會議</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">摺疊雨傘</span><span class="ctg">其他</span></div><div class="ci" onclick="chk(this,'p-bag')"><div class="cb"><span class="ck">&#10003;</span></div><span class="cl">行李秤</span><span class="ctg">其他</span></div></div></div><div id="p-doc" class="page"><div class="co" style="margin-bottom:14px"><div class="col">使用說明</div><div class="cot">點選各文件可上傳圖片或 PDF，<strong>存於此裝置瀏覽器</strong>，換裝置需重新上傳。</div></div><div class="dg"><div class="dgh">旅行文件</div><div class="di"><div class="dr" onclick="togDoc('doc-pp')"><div class="dico">🛂</div><div class="dni"><div class="dn">護照</div><div class="ds" id="doc-pp-s">尚未上傳</div></div><div class="da" id="doc-pp-a">&#9660;</div></div><div class="dp" id="doc-pp-p"><div id="doc-pp-area"><div class="dua" onclick="document.getElementById('doc-pp-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-pp-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-pp')"></div></div><div class="di"><div class="dr" onclick="togDoc('doc-esta')"><div class="dico">🇺🇸</div><div class="dni"><div class="dn">ESTA 核准確認</div><div class="ds" id="doc-esta-s">尚未上傳</div></div><div class="da" id="doc-esta-a">&#9660;</div></div><div class="dp" id="doc-esta-p"><div id="doc-esta-area"><div class="dua" onclick="document.getElementById('doc-esta-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-esta-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-esta')"></div></div></div><div class="dg"><div class="dgh">航班</div><div class="di"><div class="dr" onclick="togDoc('doc-tkg')"><div class="dico">✈</div><div class="dni"><div class="dn">電子機票（去程）BR26 + AS536</div><div class="ds" id="doc-tkg-s">尚未上傳</div></div><div class="da" id="doc-tkg-a">&#9660;</div></div><div class="dp" id="doc-tkg-p"><div id="doc-tkg-area"><div class="dua" onclick="document.getElementById('doc-tkg-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-tkg-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-tkg')"></div></div><div class="di"><div class="dr" onclick="togDoc('doc-tkr')"><div class="dico">✈</div><div class="dni"><div class="dn">電子機票（回程）AS306 + BR25</div><div class="ds" id="doc-tkr-s">尚未上傳</div></div><div class="da" id="doc-tkr-a">&#9660;</div></div><div class="dp" id="doc-tkr-p"><div id="doc-tkr-area"><div class="dua" onclick="document.getElementById('doc-tkr-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-tkr-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-tkr')"></div></div></div><div class="dg"><div class="dgh">住宿 &amp; 保險</div><div class="di"><div class="dr" onclick="togDoc('doc-ht')"><div class="dico">🏨</div><div class="dni"><div class="dn">飯店訂房確認信</div><div class="ds" id="doc-ht-s">尚未上傳</div></div><div class="da" id="doc-ht-a">&#9660;</div></div><div class="dp" id="doc-ht-p"><div id="doc-ht-area"><div class="dua" onclick="document.getElementById('doc-ht-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-ht-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-ht')"></div></div><div class="di"><div class="dr" onclick="togDoc('doc-ins')"><div class="dico">🛡️</div><div class="dni"><div class="dn">旅遊保險單</div><div class="ds" id="doc-ins-s">尚未上傳</div></div><div class="da" id="doc-ins-a">&#9660;</div></div><div class="dp" id="doc-ins-p"><div id="doc-ins-area"><div class="dua" onclick="document.getElementById('doc-ins-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-ins-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-ins')"></div></div></div><div class="dg"><div class="dgh">會議</div><div class="di"><div class="dr" onclick="togDoc('doc-cf')"><div class="dico">🎟️</div><div class="dni"><div class="dn">大會報名確認 / Badge QR</div><div class="ds" id="doc-cf-s">尚未上傳</div></div><div class="da" id="doc-cf-a">&#9660;</div></div><div class="dp" id="doc-cf-p"><div id="doc-cf-area"><div class="dua" onclick="document.getElementById('doc-cf-i').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div></div><input class="dfi" id="doc-cf-i" type="file" accept="image/*,application/pdf" onchange="upDoc(this,'doc-cf')"></div></div></div></div>
 
 </div></div>
 <script>
-const CL_KEY="boston2026-cl",LG_KEY="boston2026-lg",DOC_KEY="boston2026-doc";
-function switchTab(id,btn){document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}
-function toggleDay(h){const b=h.nextElementSibling,a=h.querySelector(".day-toggle");b.classList.toggle("open");a.classList.toggle("open");}
-function toggleCheck(item,type){const box=item.querySelector(".cl-box"),lbl=item.querySelector(".cl-label");box.classList.toggle("checked");lbl.classList.toggle("done",box.classList.contains("checked"));saveList(type);updateProgress(type);}
-function getItems(type){return type==="cl"?document.querySelectorAll("#checklist .cl-item"):document.querySelectorAll("#luggage .cl-item");}
-function updateProgress(type){const items=getItems(type);const all=items.length,done=Array.from(items).filter(i=>i.querySelector(".cl-box").classList.contains("checked")).length,pct=all?Math.round(done/all*100):0;if(type==="cl"){document.getElementById("prog-fill").style.width=pct+"%";document.getElementById("prog-count").textContent=done+" / "+all;}else{document.getElementById("lg-fill").style.width=pct+"%";document.getElementById("lg-count").textContent=done+" / "+all;}}
-function saveList(type){const key=type==="cl"?CL_KEY:LG_KEY;try{localStorage.setItem(key,JSON.stringify(Array.from(getItems(type)).map(i=>i.querySelector(".cl-box").classList.contains("checked"))));}catch(e){}}
-function loadList(type){const key=type==="cl"?CL_KEY:LG_KEY;try{const s=localStorage.getItem(key);if(!s)return;const arr=JSON.parse(s);getItems(type).forEach((item,i)=>{if(arr[i]){item.querySelector(".cl-box").classList.add("checked");item.querySelector(".cl-label").classList.add("done");}});}catch(e){}updateProgress(type);}
-function toggleDoc(id){const p=document.getElementById(id+"-preview"),a=document.getElementById(id+"-arrow"),o=p.classList.contains("open");p.classList.toggle("open",!o);a.classList.toggle("open",!o);}
-function handleDocUpload(input,id){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(e){const data=e.target.result;document.getElementById(id+"-status").textContent="已上傳："+file.name;const area=document.getElementById(id+"-area");const isPdf=file.type==="application/pdf";area.innerHTML=(isPdf?"<iframe class=\"doc-pdf-preview\" src=\""+data+"\"></iframe>":"<img class=\"doc-img-preview\" src=\""+data+"\">")+'<div class="doc-clear-btn" onclick="clearDoc(\'"+id+"\')">移除文件</div>';try{localStorage.setItem(DOC_KEY+"-"+id,JSON.stringify({name:file.name,type:file.type,data:data}));}catch(e){document.getElementById(id+"-status").textContent="已顯示（檔案太大無法儲存）";}};reader.readAsDataURL(file);}
-function clearDoc(id){try{localStorage.removeItem(DOC_KEY+"-"+id);}catch(e){}document.getElementById(id+"-status").textContent="尚未上傳";document.getElementById(id+"-area").innerHTML='<div class="doc-upload-area" onclick="document.getElementById(\'"+id+'-input\').click()"><div class="doc-upload-label">點此上傳文件</div><div class="doc-upload-hint">支援 JPG、PNG、PDF</div><div class="doc-upload-btn">選擇檔案</div></div>';}
-function loadDocs(){["doc-passport","doc-esta","doc-ticket-go","doc-ticket-return","doc-hotel","doc-insurance","doc-conf"].forEach(id=>{try{const s=localStorage.getItem(DOC_KEY+"-"+id);if(!s)return;const doc=JSON.parse(s);document.getElementById(id+"-status").textContent="已上傳："+doc.name;const area=document.getElementById(id+"-area");const isPdf=doc.type==="application/pdf";area.innerHTML=(isPdf?"<iframe class=\"doc-pdf-preview\" src=\""+doc.data+"\"></iframe>":"<img class=\"doc-img-preview\" src=\""+doc.data+"\">")+'<div class="doc-clear-btn" onclick="clearDoc(\'"+id+"\')">移除文件</div>';}catch(e){}});}
-loadList("cl");loadList("lg");loadDocs();updateProgress("cl");updateProgress("lg");
+function go(id, btn) {
+  document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+
+function tog(head) {
+  var body = head.nextElementSibling;
+  var arrow = head.querySelector('.darrow');
+  var isOpen = body.classList.contains('on');
+  if (isOpen) {
+    body.classList.remove('on');
+    arrow.classList.remove('on');
+  } else {
+    body.classList.add('on');
+    arrow.classList.add('on');
+  }
+}
+
+function chk(item, pid) {
+  var box = item.querySelector('.cb');
+  var lbl = item.querySelector('.cl');
+  if (box.classList.contains('on')) {
+    box.classList.remove('on');
+    lbl.classList.remove('done');
+  } else {
+    box.classList.add('on');
+    lbl.classList.add('done');
+  }
+  updProg(pid);
+  saveProg(pid);
+}
+
+function updProg(pid) {
+  var items = document.querySelectorAll('#' + pid + ' .ci');
+  var all = items.length;
+  var done = 0;
+  items.forEach(function(i) { if (i.querySelector('.cb').classList.contains('on')) done++; });
+  var pct = all ? Math.round(done / all * 100) : 0;
+  var suffix = pid === 'p-todo' ? 'todo' : 'bag';
+  document.getElementById('prog-' + suffix).textContent = done + ' / ' + all;
+  document.getElementById('fill-' + suffix).style.width = pct + '%';
+}
+
+function saveProg(pid) {
+  try {
+    var arr = [];
+    document.querySelectorAll('#' + pid + ' .ci').forEach(function(i) {
+      arr.push(i.querySelector('.cb').classList.contains('on'));
+    });
+    localStorage.setItem('b26-' + pid, JSON.stringify(arr));
+  } catch(e) {}
+}
+
+function loadProg(pid) {
+  try {
+    var s = localStorage.getItem('b26-' + pid);
+    if (!s) { updProg(pid); return; }
+    var arr = JSON.parse(s);
+    var items = document.querySelectorAll('#' + pid + ' .ci');
+    items.forEach(function(item, i) {
+      if (arr[i]) {
+        item.querySelector('.cb').classList.add('on');
+        item.querySelector('.cl').classList.add('done');
+      }
+    });
+  } catch(e) {}
+  updProg(pid);
+}
+
+function togDoc(did) {
+  var p = document.getElementById(did + '-p');
+  var a = document.getElementById(did + '-a');
+  if (p.classList.contains('on')) {
+    p.classList.remove('on');
+    a.classList.remove('on');
+  } else {
+    p.classList.add('on');
+    a.classList.add('on');
+  }
+}
+
+function upDoc(input, did) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var data = e.target.result;
+    document.getElementById(did + '-s').textContent = '已上傳：' + file.name;
+    var area = document.getElementById(did + '-area');
+    var isPdf = file.type === 'application/pdf';
+    var iid = did + '-i';
+    area.innerHTML = (isPdf ? '<iframe class="dif" src="' + data + '"></iframe>' : '<img class="dim" src="' + data + '">') + '<div class="dcb" onclick="clrDoc('' + did + '')">移除文件</div>';
+    try { localStorage.setItem('b26d-' + did, JSON.stringify({name: file.name, type: file.type, data: data})); }
+    catch(e) { document.getElementById(did + '-s').textContent = '已顯示（檔案太大無法儲存）'; }
+  };
+  reader.readAsDataURL(file);
+}
+
+function clrDoc(did) {
+  try { localStorage.removeItem('b26d-' + did); } catch(e) {}
+  document.getElementById(did + '-s').textContent = '尚未上傳';
+  var iid = did + '-i';
+  document.getElementById(did + '-area').innerHTML = '<div class="dua" onclick="document.getElementById(\'' + iid + '\').click()"><div class="dul">點此上傳文件</div><div class="duh">支援 JPG、PNG、PDF</div><div class="dub">選擇檔案</div></div>';
+}
+
+function loadDocs() {
+  var ids = ['doc-pp','doc-esta','doc-tkg','doc-tkr','doc-ht','doc-ins','doc-cf'];
+  ids.forEach(function(did) {
+    try {
+      var s = localStorage.getItem('b26d-' + did);
+      if (!s) return;
+      var doc = JSON.parse(s);
+      document.getElementById(did + '-s').textContent = '已上傳：' + doc.name;
+      var area = document.getElementById(did + '-area');
+      if (!area) return;
+      var isPdf = doc.type === 'application/pdf';
+      area.innerHTML = (isPdf ? '<iframe class="dif" src="' + doc.data + '"></iframe>' : '<img class="dim" src="' + doc.data + '">') + '<div class="dcb" onclick="clrDoc('' + did + '')">移除文件</div>';
+    } catch(e) {}
+  });
+}
+
+loadProg('p-todo');
+loadProg('p-bag');
+loadDocs();
 </script>
 </body>
 </html>

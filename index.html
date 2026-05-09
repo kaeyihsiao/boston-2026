@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Boston 2026">
+<title>Boston 2026 — The Aesthetic Meet</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --ink: #0f0e0c;
+    --ink2: #3a3830;
+    --ink3: #7a7770;
+    --paper: #faf8f4;
+    --paper2: #f0ece4;
+    --paper3: #e4ddd2;
+    --accent: #1a1a2e;
+    --accent2: #2d2d4e;
+    --gold: #c9a84c;
+    --gold2: #e8c97a;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    overscroll-behavior: none;
+  }
+
+  .app-shell {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* HEADER */
+  .hero {
+    background: var(--accent);
+    color: white;
+    padding: 52px 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--gold2);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 16px;
+  }
+  .hero-pills {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .pill {
+    background: rgba(255,255,255,0.1);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* TABS */
+  .tab-bar {
+    background: var(--accent);
+    padding: 0 16px 16px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    border: 0.5px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* CONTENT */
+  .content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* DAY CARDS */
+  .day-card {
+    background: white;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 0.5px solid var(--paper3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .day-header {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--paper);
+    border-bottom: 0.5px solid var(--paper3);
+  }
+  .day-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--gold2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .day-info { flex: 1; }
+  .day-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .day-desc {
+    font-size: 12px;
+    color: var(--ink3);
+    margin-top: 1px;
+  }
+  .day-toggle {
+    font-size: 12px;
+    color: var(--ink3);
+    transition: transform 0.2s;
+  }
+  .day-toggle.open { transform: rotate(180deg); }
+  .day-body { padding: 14px 16px; display: none; }
+  .day-body.open { display: block; }
+
+  /* TIMELINE */
+  .tl { position: relative; }
+  .tl-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-time {
+    min-width: 44px;
+    font-size: 11px;
+    color: var(--ink3);
+    text-align: right;
+    padding-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+  }
+  .tl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .tl-line {
+    width: 1px;
+    background: var(--paper3);
+    flex: 1;
+    min-height: 18px;
+    margin-top: 3px;
+  }
+  .tl-content { flex: 1; }
+  .tl-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .tl-note {
+    font-size: 12px;
+    color: var(--ink3);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+  .b-flight { background: #dbeafe; color: #1e40af; }
+  .b-transit { background: #dcfce7; color: #166534; }
+  .b-hotel { background: #fef3c7; color: #92400e; }
+  .b-food { background: #ffe4e6; color: #9f1239; }
+  .b-tip { background: #ede9fe; color: #5b21b6; }
+
+  /* FLIGHTS */
+  .flight-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 0.5px solid var(--paper3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .airport { text-align: center; }
+  .airport-code {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .airport-time {
+    font-size: 13px;
+    color: var(--ink3);
+    margin-top: 2px;
+  }
+  .flight-line {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+  }
+  .fl-num { font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 0.5px; }
+  .fl-arrow {
+    width: 100%;
+    height: 1px;
+    background: var(--paper3);
+    position: relative;
+  }
+  .fl-arrow::after {
+    content: '▶';
+    position: absolute;
+    right: -2px;
+    top: -6px;
+    font-size: 10px;
+    color: var(--ink3);
+  }
+  .fl-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fl-tag {
+    font-size: 11px;
+    color: var(--ink3);
+    background: var(--paper2);
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 16px 0 8px;
+  }
+  .section-eyebrow:first-child { margin-top: 0; }
+
+  /* TRANSIT */
+  .transit-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 0.5px solid var(--paper3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .transit-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--paper3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .transit-icon {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .step {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--gold2);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .step-desc { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+
+  .callout {
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .callout-label { font-size: 10px; letter-spacing: 1.5px; color: var(--gold2); text-transform: uppercase; margin-bottom: 4px; }
+  .callout-text { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.85); }
+  .callout-text strong { color: white; font-weight: 500; }
+
+  /* CHECKLIST */
+  .progress-wrap { margin-bottom: 14px; }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .progress-title { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .progress-count { font-size: 12px; color: var(--ink3); }
+  .progress-track {
+    height: 4px;
+    background: var(--paper3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .cl-group {
+    background: white;
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    border: 0.5px solid var(--paper3);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .cl-group-header {
+    padding: 10px 14px;
+    background: var(--paper2);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 500;
+    border-bottom: 0.5px solid var(--paper3);
+  }
+  .cl-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 0.5px solid var(--paper2);
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .cl-item:last-child { border-bottom: none; }
+  .cl-item:active { background: var(--paper2); }
+  .cl-box {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--paper3);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .cl-box.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .cl-check { color: var(--gold2); font-size: 12px; display: none; }
+  .cl-box.checked .cl-check { display: block; }
+  .cl-label {
+    font-size: 13px;
+    color: var(--ink);
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .cl-label.done {
+    text-decoration: line-through;
+    color: var(--ink3);
+  }
+  .cl-tag {
+    font-size: 10px;
+    color: var(--ink3);
+    background: var(--paper2);
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div class="hero">
+    <div class="hero-eyebrow">The Aesthetic Meet 2026</div>
+    <div class="hero-title">波士頓<br>Boston ✈</div>
+    <div class="hero-sub">Omni Boston Seaport</div>
+    <div class="hero-pills">
+      <span class="pill">May 14–18</span>
+      <span class="pill">BR26 · AS536</span>
+      <span class="pill">4段航班</span>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('itinerary',this)">行程</button>
+    <button class="tab-btn" onclick="switchTab('flights',this)">航班</button>
+    <button class="tab-btn" onclick="switchTab('transit',this)">西雅圖轉機</button>
+    <button class="tab-btn" onclick="switchTab('checklist',this)">待辦清單</button>
+  </div>
+
+  <div class="content">
+
+    <!-- 行程 -->
+    <div id="itinerary" class="section active">
+
+      <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-icon">✈</div>
+          <div class="day-info">
+            <div class="day-label">Day 0 — May 14 (Thu)</div>
+            <div class="day-desc">出發日 · 林口 → 桃園 → 西雅圖</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-time">21:00</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">林口出發</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">21:40</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達桃園機場</div>
+                <div class="tl-note">前往長榮 The Garden Lounge（營業至 23:30）</div>
+                <div class="badges"><span class="badge b-tip">貴賓廳</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">23:40</div>
+              <div class="tl-marker"><div class="tl-dot"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">BR26 起飛 TPE → SEA</div>
+                <div class="tl-note">記得連機上 WiFi</div>
+                <div class="badges"><span class="badge b-flight">長榮航空</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-icon">🌏</div>
+          <div class="day-info">
+            <div class="day-label">Day 1 — May 15 (Fri)</div>
+            <div class="day-desc">西雅圖轉機 → 抵達波士頓</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-time">19:30</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達西雅圖 SEA</div>
+                <div class="tl-note">台灣時間 5/15 10:30。開啟 eSIM，執行轉機流程（見「西雅圖轉機」分頁）</div>
+                <div class="badges"><span class="badge b-transit">轉機</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">23:10</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">AS536 起飛 SEA → BOS</div>
+                <div class="tl-note">機上 WiFi USD 8。可先在西雅圖貴賓廳洗澡休息</div>
+                <div class="badges"><span class="badge b-flight">Alaska Airlines</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">07:41</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達波士頓 BOS</div>
+                <div class="tl-note">台灣時間 5/15 19:41。乾爸媽接機或叫 Taxi</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time"></div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">Omni Boston Seaport</div>
+                <div class="tl-note">暫放行李，前往會場 Check-in，下載大會 App</div>
+                <div class="badges"><span class="badge b-hotel">飯店</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">晚餐</div>
+              <div class="tl-marker"><div class="tl-dot"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">晚餐（已訂位）</div>
+                <div class="badges"><span class="badge b-food">餐廳</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-icon">🎯</div>
+          <div class="day-info">
+            <div class="day-label">Day 2 — May 16 (Sat)</div>
+            <div class="day-desc">The Aesthetic Meet 會議日</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-time">全天</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">The Aesthetic Meet 會議</div>
+                <div class="tl-note">Omni Boston Seaport 會場</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">晚餐</div>
+              <div class="tl-marker"><div class="tl-dot"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">晚餐（已訂位）</div>
+                <div class="badges"><span class="badge b-food">餐廳</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-icon">🦞</div>
+          <div class="day-info">
+            <div class="day-label">Day 3 — May 17 (Sun)</div>
+            <div class="day-desc">返程 · 波士頓 → 西雅圖</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-time">16:50</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">前往波士頓機場</div>
+                <div class="tl-note">告訴司機目的地是 TPE（台北）</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">17:11</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達 BOS 機場</div>
+                <div class="tl-note">台灣時間 5/18 05:11。前往 Legal Sea Foods 用餐，或進貴賓廳</div>
+                <div class="badges"><span class="badge b-food">Legal Sea Foods</span><span class="badge b-tip">貴賓廳</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">19:11</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">AS306 起飛 BOS → SEA</div>
+                <div class="tl-note">台灣時間 5/18 07:11</div>
+                <div class="badges"><span class="badge b-flight">Alaska Airlines</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">22:27</div>
+              <div class="tl-marker"><div class="tl-dot"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達西雅圖 SEA 轉機</div>
+                <div class="tl-note">台灣時間 5/18 13:27。確認貴賓廳營業時間，預約淋浴：「I'd like to reserve a shower.」</div>
+                <div class="badges"><span class="badge b-tip">Priority Pass</span><span class="badge b-transit">轉機</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-header" onclick="toggleDay(this)">
+          <div class="day-icon">🏠</div>
+          <div class="day-info">
+            <div class="day-label">Day 4 — May 18 (Mon)</div>
+            <div class="day-desc">返台 · 西雅圖 → 台北</div>
+          </div>
+          <div class="day-toggle">▼</div>
+        </div>
+        <div class="day-body">
+          <div class="tl">
+            <div class="tl-item">
+              <div class="tl-time">01:50</div>
+              <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">BR25 起飛 SEA → TPE</div>
+                <div class="tl-note">記得連機上 WiFi</div>
+                <div class="badges"><span class="badge b-flight">長榮航空</span></div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-time">05:10</div>
+              <div class="tl-marker"><div class="tl-dot"></div></div>
+              <div class="tl-content">
+                <div class="tl-title">抵達台北 TPE 🎉</div>
+                <div class="tl-note">回家了！</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 航班 -->
+    <div id="flights" class="section">
+      <div class="section-eyebrow">去程 Outbound</div>
+
+      <div class="flight-card">
+        <div class="flight-route">
+          <div class="airport">
+            <div class="airport-code">TPE</div>
+            <div class="airport-time">23:40</div>
+          </div>
+          <div class="flight-line">
+            <div class="fl-num">BR26</div>
+            <div class="fl-arrow"></div>
+          </div>
+          <div class="airport" style="text-align:right">
+            <div class="airport-code">SEA</div>
+            <div class="airport-time">19:30</div>
+          </div>
+        </div>
+        <div class="fl-tags">
+          <span class="fl-tag">長榮航空</span>
+          <span class="fl-tag">May 14</span>
+          <span class="fl-tag">機上 WiFi</span>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-route">
+          <div class="airport">
+            <div class="airport-code">SEA</div>
+            <div class="airport-time">23:10</div>
+          </div>
+          <div class="flight-line">
+            <div class="fl-num">AS536</div>
+            <div class="fl-arrow"></div>
+          </div>
+          <div class="airport" style="text-align:right">
+            <div class="airport-code">BOS</div>
+            <div class="airport-time">07:41</div>
+          </div>
+        </div>
+        <div class="fl-tags">
+          <span class="fl-tag">Alaska Airlines</span>
+          <span class="fl-tag">May 14→15</span>
+          <span class="fl-tag">WiFi USD 8</span>
+        </div>
+      </div>
+
+      <div class="section-eyebrow">回程 Return</div>
+
+      <div class="flight-card">
+        <div class="flight-route">
+          <div class="airport">
+            <div class="airport-code">BOS</div>
+            <div class="airport-time">19:11</div>
+          </div>
+          <div class="flight-line">
+            <div class="fl-num">AS306</div>
+            <div class="fl-arrow"></div>
+          </div>
+          <div class="airport" style="text-align:right">
+            <div class="airport-code">SEA</div>
+            <div class="airport-time">22:27</div>
+          </div>
+        </div>
+        <div class="fl-tags">
+          <span class="fl-tag">Alaska Airlines</span>
+          <span class="fl-tag">May 17</span>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-route">
+          <div class="airport">
+            <div class="airport-code">SEA</div>
+            <div class="airport-time">01:50</div>
+          </div>
+          <div class="flight-line">
+            <div class="fl-num">BR25</div>
+            <div class="fl-arrow"></div>
+          </div>
+          <div class="airport" style="text-align:right">
+            <div class="airport-code">TPE</div>
+            <div class="airport-time">05:10</div>
+          </div>
+        </div>
+        <div class="fl-tags">
+          <span class="fl-tag">長榮航空</span>
+          <span class="fl-tag">May 18</span>
+          <span class="fl-tag">機上 WiFi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 轉機 -->
+    <div id="transit" class="section">
+      <div class="callout">
+        <div class="callout-label">去程轉機 SEA · BR26 → AS536</div>
+        <div class="callout-text">需要<strong>領行李 → 過海關 → 重新托運</strong>，預留充裕時間</div>
+      </div>
+
+      <div class="transit-card">
+        <div class="transit-title">
+          <div class="transit-icon">🛃</div>
+          六步轉機流程
+        </div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">入境審查</div>
+            <div class="step-desc">跟著 Arrivals / Passport Control 指標走 → 排隊過美國海關 (CBP)，準備護照、回答問題</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">領行李 Baggage Claim</div>
+            <div class="step-desc">不管同不同張票，都一定要領出來</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">過海關 Customs</div>
+            <div class="step-desc">有申報走紅線，無申報走綠線（通常很快）</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">重新托運 Baggage Re-check</div>
+            <div class="step-desc">出海關後找「Connecting Flights / Baggage Recheck」。分開買票 → 去 Alaska Airlines 櫃台重新 check-in</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">再過 TSA 安檢</div>
+            <div class="step-desc">重新托運後上樓到出發層，再過一次國內航班安檢</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">找登機門 Gate</div>
+            <div class="step-desc">Alaska 多在 C / N gates。可搭地下小火車 SEA Underground 快速移動</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transit-card">
+        <div class="transit-title">
+          <div class="transit-icon">🚿</div>
+          貴賓廳 & 淋浴
+        </div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-content">
+            <div class="step-title">使用 Priority Pass</div>
+            <div class="step-desc">去程在西雅圖可洗澡休息，再搭 AS536</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-content">
+            <div class="step-title">回程淋浴預約</div>
+            <div class="step-desc">「<strong>I'd like to reserve a shower.</strong>」先確認貴賓廳營業時間</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transit-card">
+        <div class="transit-title">
+          <div class="transit-icon">📱</div>
+          抵達西雅圖第一件事
+        </div>
+        <div class="step">
+          <div class="step-num">✓</div>
+          <div class="step-content">
+            <div class="step-title">開啟 eSIM</div>
+            <div class="step-desc">連上美國網路，開啟地圖導航，確認轉機資訊</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 清單 -->
+    <div id="checklist" class="section">
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <div class="progress-title">出發前準備進度</div>
+          <div class="progress-count" id="prog-count">0 / 19</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">文件 & 金錢</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">護照效期確認</span>
+          <span class="cl-tag">文件</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">ESTA 申請</span>
+          <span class="cl-tag">文件</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">換美金現金</span>
+          <span class="cl-tag">金錢</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">旅遊保險購買</span>
+          <span class="cl-tag">保險</span>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">通訊 & 3C</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">購買 eSIM</span>
+          <span class="cl-tag">通訊</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">行動電源帶了</span>
+          <span class="cl-tag">3C</span>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">航班</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">電子機票備妥</span>
+          <span class="cl-tag">文件</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">預先選餐</span>
+          <span class="cl-tag">航班</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">網路劃位</span>
+          <span class="cl-tag">航班</span>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">會議 & 住宿</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">會議資料準備</span>
+          <span class="cl-tag">會議</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">飯店資料確認</span>
+          <span class="cl-tag">住宿</span>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">App 下載</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">EVA Air App</span>
+          <span class="cl-tag">App</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">Alaska Airlines App</span>
+          <span class="cl-tag">App</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">Priority Pass App</span>
+          <span class="cl-tag">App</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">flySEA App</span>
+          <span class="cl-tag">App</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">MPC App</span>
+          <span class="cl-tag">App</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">大會 App 下載</span>
+          <span class="cl-tag">App</span>
+        </div>
+      </div>
+
+      <div class="cl-group">
+        <div class="cl-group-header">餐廳預訂</div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">5/15 晚餐訂位</span>
+          <span class="cl-tag">餐廳</span>
+        </div>
+        <div class="cl-item" onclick="toggleCheck(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <span class="cl-label">5/16 晚餐訂位</span>
+          <span class="cl-tag">餐廳</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'boston2026-checklist';
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function toggleDay(header) {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.day-toggle');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    arrow.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCheck(item) {
+    const box = item.querySelector('.cl-box');
+    const label = item.querySelector('.cl-label');
+    const isDone = box.classList.contains('checked');
+    box.classList.toggle('checked', !isDone);
+    label.classList.toggle('done', !isDone);
+    saveChecklist();
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.cl-item').length;
+    const done = document.querySelectorAll('.cl-box.checked').length;
+    const pct = all ? Math.round(done / all * 100) : 0;
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-count').textContent = done + ' / ' + all;
+  }
+
+  function saveChecklist() {
+    const items = document.querySelectorAll('.cl-item');
+    const state = Array.from(items).map(item => item.querySelector('.cl-box').classList.contains('checked'));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function loadChecklist() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    const items = document.querySelectorAll('.cl-item');
+    items.forEach((item, i) => {
+      if (state[i]) {
+        item.querySelector('.cl-box').classList.add('checked');
+        item.querySelector('.cl-label').classList.add('done');
+      }
+    });
+    updateProgress();
+  }
+
+  loadChecklist();
+  updateProgress();
+</script>
+</body>
+</html>
